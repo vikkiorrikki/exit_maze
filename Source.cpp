@@ -81,11 +81,18 @@ public:
 	Node* getParent() {
 		return this->parent;
 	}
+	void setPoint(Point pnt) {
+		this->pnt = pnt;
+	}
+	Point getPoint() {
+		return this->pnt;
+	}
 
 	~Node()
 	{
 		this->parent = nullptr;
 	}
+	
 private:
 	Point pnt;
 	Node* parent;
@@ -94,19 +101,18 @@ private:
 	float f;
 };
 
+//закидывать в открытый список по приоритету соседей текущей ноды. для этого: в список берем соседей, исключая препятствия, рассчитываем для них ghf -> в опенед insert по приоритету f, исключая уже взятые в клозд и опенд. 
+//далее каррент нода с наименьшим приоритетом, для неё тоже самое
+//в конце просто из finish по родительским узлам строим маршрут до старт (отдельной фукнцией)
+
 void AStar(Point &start, Point &finish) {
-	priority_queue<int, deque<Node>> opened;
-	list<Node> closeds;
+	list<Node> opened;
+	list<Node> closed;
 
 	Node startNode(start, nullptr);
 	startNode.setG(0.0f);            // сколько пройти пришлось до этого узла
 	startNode.setH(Node::computeH(start, finish)); // сколько приблизительно еще идти
 	startNode.computeF(); //общий приблизительный путь
-
-	opened.push()
-
-	
-
 
 	//return путь start to finish
 }
