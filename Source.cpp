@@ -1,4 +1,4 @@
-п»ї#include<iostream>
+#include<iostream>
 #include<fstream>
 #include<string>
 #include<vector>
@@ -7,8 +7,8 @@
 
 using namespace std;
 
-//РєР°Рє С…СЂР°РЅРёС‚СЊ Р»Р°Р±РёСЂРёРЅС‚. С‚РѕС‡РєРё, РєРѕРѕСЂРґРёРЅР°С‚С‹
-//Р°Р»РіРѕСЂРёС‚Рј СЂР°Р±РѕС‚С‹ СЃ Р»Р°Р±РёСЂРёРЅС‚РѕРј
+//как хранить лабиринт. точки, координаты
+//алгоритм работы с лабиринтом
 
 class Point {
 public:
@@ -48,18 +48,67 @@ public:
 private:
 	int x;
 	int y;
-	//bool border; //РіСЂР°РЅРёС†Р° Р»Р°Р±РёСЂРёРЅС‚Р°
-	bool block; //РїСЂРµРїСЏС‚СЃС‚РІРёРµ Р»Р°Р±РёСЂРёРЅС‚Р°
+	//bool border; //граница лабиринта
+	bool block; //препятствие лабиринта
 	bool start = false;
 	bool finish = false;
 };
 
-void AStar(Point start, Point finish) {
-	priority_queue<Point> open_points;
-	list<Point> close_points;
+class Node {
+public:
+	Node(){}
+	Node(Point &start, Node* parent) {
+		this->pnt = start;
+		this->parent = parent;
+	}
+
+	void setG(float g) { this->g = g; }
+	void setH(float h) { this->h = h; }
+	void setF(float f) { this->f = f; }
+	float getG() { return this->g; }
+	float getH() { return this->h; }
+	float getF() { return this->f; }
+
+	void computeF() {
+		this->f = this->g + this->h;
+	}
+	static float computeH(Point& start, Point& goal) {
+		return abs(start.getX() - goal.getX()) + abs(start.getY() - goal.getY());
+	}
+	void setParent(Node* parent) {
+		this->parent = parent;
+	}
+	Node* getParent() {
+		return this->parent;
+	}
+
+	~Node()
+	{
+		this->parent = nullptr;
+	}
+private:
+	Point pnt;
+	Node* parent;
+	float g;
+	float h;
+	float f;
+};
+
+void AStar(Point &start, Point &finish) {
+	priority_queue<int, deque<Node>> opened;
+	list<Node> closeds;
+
+	Node startNode(start, nullptr);
+	startNode.setG(0.0f);            // сколько пройти пришлось до этого узла
+	startNode.setH(Node::computeH(start, finish)); // сколько приблизительно еще идти
+	startNode.computeF(); //общий приблизительный путь
+
+	opened.push()
+
+	
 
 
-	//return РїСѓС‚СЊ start to finish
+	//return путь start to finish
 }
 
 int main() {
