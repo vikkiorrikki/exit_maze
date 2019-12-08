@@ -1,14 +1,13 @@
-#include<iostream>
+Ôªø#include<iostream>
 #include<fstream>
 #include<string>
 #include<vector>
-#include<queue>
 #include<list>
 
 using namespace std;
 
-//Í‡Í ı‡ÌËÚ¸ Î‡·ËËÌÚ. ÚÓ˜ÍË, ÍÓÓ‰ËÌ‡Ú˚
-//‡Î„ÓËÚÏ ‡·ÓÚ˚ Ò Î‡·ËËÌÚÓÏ
+//–∫–∞–∫ —Ö—Ä–∞–Ω–∏—Ç—å –ª–∞–±–∏—Ä–∏–Ω—Ç. —Ç–æ—á–∫–∏, –∫–æ–æ—Ä–¥–∏–Ω–∞—Ç—ã
+//–∞–ª–≥–æ—Ä–∏—Ç–º —Ä–∞–±–æ—Ç—ã —Å –ª–∞–±–∏—Ä–∏–Ω—Ç–æ–º
 
 class Point {
 public:
@@ -33,8 +32,14 @@ public:
 	void setStart(bool start) {
 		this->start = start;
 	}
+	bool getStart() {
+		return this->start;
+	}
 	void setFinish(bool finish) {
 		this->finish = finish;
+	}
+	bool getFinish() {
+		return this->finish;
 	}
 	int getX() {
 		return this->x;
@@ -48,16 +53,16 @@ public:
 private:
 	int x;
 	int y;
-	//bool border; //„‡ÌËˆ‡ Î‡·ËËÌÚ‡
-	bool block; //ÔÂÔˇÚÒÚ‚ËÂ Î‡·ËËÌÚ‡
+	//bool border; //–≥—Ä–∞–Ω–∏—Ü–∞ –ª–∞–±–∏—Ä–∏–Ω—Ç–∞
+	bool block; //–ø—Ä–µ–ø—è—Ç—Å—Ç–≤–∏–µ –ª–∞–±–∏—Ä–∏–Ω—Ç–∞
 	bool start = false;
 	bool finish = false;
 };
 
 class Node {
 public:
-	Node(){}
-	Node(Point &start, Node* parent) {
+	Node() {}
+	Node(Point& start, Node* parent) {
 		this->pnt = start;
 		this->parent = parent;
 	}
@@ -88,11 +93,17 @@ public:
 		return this->pnt;
 	}
 
+	static list<Node> getNeighbours(Point goal, vector<Point> &points) {
+		list<Node> neighboursNodes;
+
+		return neighboursNodes;
+	}
+
 	~Node()
 	{
 		this->parent = nullptr;
 	}
-	
+
 private:
 	Point pnt;
 	Node* parent;
@@ -101,20 +112,56 @@ private:
 	float f;
 };
 
-//Á‡ÍË‰˚‚‡Ú¸ ‚ ÓÚÍ˚Ú˚È ÒÔËÒÓÍ ÔÓ ÔËÓËÚÂÚÛ ÒÓÒÂ‰ÂÈ ÚÂÍÛ˘ÂÈ ÌÓ‰˚. ‰Îˇ ˝ÚÓ„Ó: ‚ ÒÔËÒÓÍ ·ÂÂÏ ÒÓÒÂ‰ÂÈ, ËÒÍÎ˛˜‡ˇ ÔÂÔˇÚÒÚ‚Ëˇ, ‡ÒÒ˜ËÚ˚‚‡ÂÏ ‰Îˇ ÌËı ghf -> ‚ ÓÔÂÌÂ‰ insert ÔÓ ÔËÓËÚÂÚÛ f, ËÒÍÎ˛˜‡ˇ ÛÊÂ ‚ÁˇÚ˚Â ‚ ÍÎÓÁ‰ Ë ÓÔÂÌ‰. 
-//‰‡ÎÂÂ Í‡ÂÌÚ ÌÓ‰‡ Ò Ì‡ËÏÂÌ¸¯ËÏ ÔËÓËÚÂÚÓÏ, ‰Îˇ ÌÂ∏ ÚÓÊÂ Ò‡ÏÓÂ
-//‚ ÍÓÌˆÂ ÔÓÒÚÓ ËÁ finish ÔÓ Ó‰ËÚÂÎ¸ÒÍËÏ ÛÁÎ‡Ï ÒÚÓËÏ Ï‡¯ÛÚ ‰Ó ÒÚ‡Ú (ÓÚ‰ÂÎ¸ÌÓÈ ÙÛÍÌˆËÂÈ)
+//–∑–∞–∫–∏–¥—ã–≤–∞—Ç—å –≤ –æ—Ç–∫—Ä—ã—Ç—ã–π —Å–ø–∏—Å–æ–∫ –ø–æ –ø—Ä–∏–æ—Ä–∏—Ç–µ—Ç—É —Å–æ—Å–µ–¥–µ–π —Ç–µ–∫—É—â–µ–π –Ω–æ–¥—ã. –¥–ª—è —ç—Ç–æ–≥–æ: –≤ —Å–ø–∏—Å–æ–∫ –±–µ—Ä–µ–º —Å–æ—Å–µ–¥–µ–π, –∏—Å–∫–ª—é—á–∞—è –ø—Ä–µ–ø—è—Ç—Å—Ç–≤–∏—è, —Ä–∞—Å—Å—á–∏—Ç—ã–≤–∞–µ–º –¥–ª—è –Ω–∏—Ö ghf -> –≤ –æ–ø–µ–Ω–µ–¥ insert –ø–æ –ø—Ä–∏–æ—Ä–∏—Ç–µ—Ç—É f, –∏—Å–∫–ª—é—á–∞—è —É–∂–µ –≤–∑—è—Ç—ã–µ –≤ –∫–ª–æ–∑–¥ –∏ –æ–ø–µ–Ω–¥. 
+//–¥–∞–ª–µ–µ –∫–∞—Ä—Ä–µ–Ω—Ç –Ω–æ–¥–∞ —Å –Ω–∞–∏–º–µ–Ω—å—à–∏–º –ø—Ä–∏–æ—Ä–∏—Ç–µ—Ç–æ–º, –¥–ª—è –Ω–µ—ë —Ç–æ–∂–µ —Å–∞–º–æ–µ
+//–≤ –∫–æ–Ω—Ü–µ –ø—Ä–æ—Å—Ç–æ –∏–∑ finish –ø–æ —Ä–æ–¥–∏—Ç–µ–ª—å—Å–∫–∏–º —É–∑–ª–∞–º —Å—Ç—Ä–æ–∏–º –º–∞—Ä—à—Ä—É—Ç –¥–æ —Å—Ç–∞—Ä—Ç (–æ—Ç–¥–µ–ª—å–Ω–æ–π —Ñ—É–∫–Ω—Ü–∏–µ–π)
 
-void AStar(Point &start, Point &finish) {
+list<Node> AStar(Point& start, Point& finish, vector<Point> &points) {
 	list<Node> opened;
 	list<Node> closed;
 
 	Node startNode(start, nullptr);
-	startNode.setG(0.0f);            // ÒÍÓÎ¸ÍÓ ÔÓÈÚË ÔË¯ÎÓÒ¸ ‰Ó ˝ÚÓ„Ó ÛÁÎ‡
-	startNode.setH(Node::computeH(start, finish)); // ÒÍÓÎ¸ÍÓ ÔË·ÎËÁËÚÂÎ¸ÌÓ Â˘Â Ë‰ÚË
-	startNode.computeF(); //Ó·˘ËÈ ÔË·ÎËÁËÚÂÎ¸Ì˚È ÔÛÚ¸
+	startNode.setG(0.0f);            // —Å–∫–æ–ª—å–∫–æ –ø—Ä–æ–π—Ç–∏ –ø—Ä–∏—à–ª–æ—Å—å –¥–æ —ç—Ç–æ–≥–æ —É–∑–ª–∞
+	startNode.setH(Node::computeH(start, finish)); // —Å–∫–æ–ª—å–∫–æ –ø—Ä–∏–±–ª–∏–∑–∏—Ç–µ–ª—å–Ω–æ –µ—â–µ –∏–¥—Ç–∏
+	startNode.computeF(); //–æ–±—â–∏–π –ø—Ä–∏–±–ª–∏–∑–∏—Ç–µ–ª—å–Ω—ã–π –ø—É—Ç—å
 
-	//return ÔÛÚ¸ start to finish
+	opened.push_back(startNode);
+
+	while (!opened.empty()) {
+		Node currentNode(opened.front()); //—É–∑–µ–ª –Ω–∞ —Ä–∞—Å—Å–º–æ—Ç—Ä–µ–Ω–∏–∏
+
+		if (currentNode.getPoint().getFinish() == true) { //–µ—Å–ª–∏ —Ç–µ–∫—É—â–∞—è –Ω–æ–¥–∞ == —Ü–µ–ª—å
+			return getPathToStartFromFinish(&currentNode);
+		}
+
+		closed.push_back(currentNode); //—Ç–µ–∫—É—â–∏–π —É–∑–µ–ª —Ä–∞—Å—Å–º–æ—Ç—Ä–µ–Ω
+		opened.pop_front();
+
+		auto neighbours = currentNode.getNeighbours(finish, points); //–∏—â–µ–º —Å–æ—Å–µ–¥–µ–π
+
+		for (auto currentNeighbour : neighbours) { //–ø—Ä–æ—Ö–æ–¥–∏–º—Å—è –ø–æ –∫–∞–∂–¥–æ–º—É —Å–æ—Å–µ–¥—É
+			auto closeNodeIter = find(closed.begin(), closed.end(), currentNeighbour); // –µ—Å–ª–∏ –æ–Ω –∑–∞–∫—Ä—ã—Ç, –ø—Ä–æ–ø—É—Å–∫–∞–µ–º –µ–≥–æ –∏ –ø–µ—Ä–µ—Ö–æ–¥–∏–º –∫ —Å–ª–µ–¥—É—é—â
+			if (closeNodeIter != closed.end()) continue;
+
+			//–∏—â–µ–º —Å–æ—Å–µ–¥–∞ –≤ –æ–ø–µ–Ω–¥ –ª–∏—Å—Ç–µ
+			auto openNodeIter = find(opened.begin(), opened.end(), currentNeighbour);
+			if (openNodeIter == opened.end()) {
+				//insert(opened, currentNeigbour); –Ω–∞–ø–∏—Å–∞—Ç—å
+			}
+			else if (openNodeIter->getG() > currentNeighbour.getG()) {
+				openNodeIter->setParent(&closed.back());
+				openNodeIter->setG(currentNeighbour.getG());
+				openNodeIter->computeF();
+			}
+		}
+		
+	}
+
+	//return –ø—É—Ç—å start to finish
+}
+
+list<Node> getPathToStartFromFinish(Node* node) { //—Å—Ç—Ä–æ–∏–º –ø—É—Ç—å –¥–æ —Å—Ç–∞—Ä—Ç–∞ –æ—Ç —Ñ–∏–Ω–∏—à–Ω–æ–π –Ω–æ–¥—ã
+	list<Node> path;
 }
 
 int main() {
@@ -162,10 +209,17 @@ int main() {
 	for (int i = 0; i < maze.size(); i++) {
 		maze[i].Print();
 	}
-
-
-
 	fmaze.close();
+
+	Point start;
+	Point goal;
+	for (int i = 0; i < maze.size(); i++)
+	{
+		if (maze[i].getStart == true) start = maze[i];
+		if(maze[i].getFinish == true) goal = maze[i];
+	}
+	AStar(start, goal, maze);
+
 	system("pause");
 	return 0;
 }
